@@ -1,0 +1,244 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.28.0.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 1974049509@qq.com, 1, LIC=DSNGK-Z34FG-JLBCC-75U9B-YSS4L-TKYCK
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.28.0.0
+Toolchain Path:  E:\Keil5\Keil\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.28.0.0
+Dialog DLL:      DARMSTM.DLL V1.68.0.0
+Target DLL:      CMSIS_AGDI.dll V1.31.18.0
+Dialog DLL:      TCM.DLL V1.36.2.0
+ 
+<h2>Project:</h2>
+E:\Debug\Travel_robot2024\Travel_Robot_Competition-main\src\USER\Template.uvprojx
+Project File Date:  10/14/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\Keil5\Keil\ARM\ARMCC\Bin'
+Build target 'Template'
+compiling system_stm32f10x.c...
+compiling main.c...
+..\HARDWARE\EXTI\exti.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\LED\led.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\TIM\tim.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\USART3\usart3.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\SENSOR\sensor.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\task.h(162): warning:  #1295-D: Deprecated declaration jingdian4_3 - give arg types
+  void jingdian4_3();
+..\TASK\task.h(163): warning:  #1295-D: Deprecated declaration jingdian3_7 - give arg types
+  void jingdian3_7();
+..\TASK\task.h(167): warning:  #1-D: last line of file ends without a newline
+  #endif
+main.c: 9 warnings, 0 errors
+assembling startup_stm32f10x_hd.s...
+compiling stm32f10x_it.c...
+compiling usart.c...
+compiling stm32f10x_dac.c...
+compiling stm32f10x_bkp.c...
+compiling misc.c...
+compiling delay.c...
+compiling stm32f10x_crc.c...
+compiling stm32f10x_dbgmcu.c...
+compiling stm32f10x_cec.c...
+compiling stm32f10x_adc.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_can.c...
+compiling stm32f10x_dma.c...
+compiling stm32f10x_fsmc.c...
+compiling stm32f10x_flash.c...
+compiling stm32f10x_gpio.c...
+compiling core_cm3.c...
+compiling stm32f10x_iwdg.c...
+compiling stm32f10x_i2c.c...
+compiling stm32f10x_pwr.c...
+compiling sys.c...
+compiling stm32f10x_rtc.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_sdio.c...
+compiling stm32f10x_spi.c...
+compiling stm32f10x_wwdg.c...
+compiling motor.c...
+..\HARDWARE\MOTER\motor.c(28): warning:  #177-D: variable "GPIO_InitStructure"  was declared but never referenced
+  	GPIO_InitTypeDef GPIO_InitStructure;
+..\HARDWARE\MOTER\motor.c(100): warning:  #1-D: last line of file ends without a newline
+  }
+..\HARDWARE\MOTER\motor.c: 2 warnings, 0 errors
+compiling stm32f10x_usart.c...
+compiling usart3.c...
+..\HARDWARE\USART3\usart3.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\USART3\usart3.c(48): warning:  #177-D: variable "com_data"  was declared but never referenced
+  	int32_t com_data;
+..\HARDWARE\USART3\usart3.c: 2 warnings, 0 errors
+compiling led.c...
+..\HARDWARE\LED\led.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\LED\led.c: 1 warning, 0 errors
+compiling stm32f10x_tim.c...
+compiling tim.c...
+..\HARDWARE\LED\led.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\TIM\tim.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\USART3\usart3.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\SENSOR\sensor.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\task.h(162): warning:  #1295-D: Deprecated declaration jingdian4_3 - give arg types
+  void jingdian4_3();
+..\TASK\task.h(163): warning:  #1295-D: Deprecated declaration jingdian3_7 - give arg types
+  void jingdian3_7();
+..\TASK\task.h(167): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\TIM\tim.c(171): warning:  #1-D: last line of file ends without a newline
+  }
+..\HARDWARE\TIM\tim.c: 9 warnings, 0 errors
+compiling sensor.c...
+..\HARDWARE\SENSOR\sensor.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\SENSOR\sensor.c: 2 warnings, 0 errors
+compiling exti.c...
+..\HARDWARE\LED\led.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\EXTI\exti.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\SENSOR\sensor.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\USART3\usart3.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\TIM\tim.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\task.h(162): warning:  #1295-D: Deprecated declaration jingdian4_3 - give arg types
+  void jingdian4_3();
+..\TASK\task.h(163): warning:  #1295-D: Deprecated declaration jingdian3_7 - give arg types
+  void jingdian3_7();
+..\TASK\task.h(167): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\EXTI\exti.c(98): warning:  #1-D: last line of file ends without a newline
+  }
+..\HARDWARE\EXTI\exti.c: 10 warnings, 0 errors
+compiling planB.c...
+..\HARDWARE\USART3\usart3.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\SENSOR\sensor.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\LED\led.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\TIM\tim.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\task.h(162): warning:  #1295-D: Deprecated declaration jingdian4_3 - give arg types
+  void jingdian4_3();
+..\TASK\task.h(163): warning:  #1295-D: Deprecated declaration jingdian3_7 - give arg types
+  void jingdian3_7();
+..\TASK\task.h(167): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\planB.c: 8 warnings, 0 errors
+compiling task.c...
+..\HARDWARE\USART3\usart3.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\SENSOR\sensor.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\LED\led.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\TIM\tim.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\task.h(162): warning:  #1295-D: Deprecated declaration jingdian4_3 - give arg types
+  void jingdian4_3();
+..\TASK\task.h(163): warning:  #1295-D: Deprecated declaration jingdian3_7 - give arg types
+  void jingdian3_7();
+..\TASK\task.h(167): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\task.c: 8 warnings, 0 errors
+compiling mpu6050.c...
+compiling planC.c...
+..\HARDWARE\USART3\usart3.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\SENSOR\sensor.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\LED\led.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\TIM\tim.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\task.h(162): warning:  #1295-D: Deprecated declaration jingdian4_3 - give arg types
+  void jingdian4_3();
+..\TASK\task.h(163): warning:  #1295-D: Deprecated declaration jingdian3_7 - give arg types
+  void jingdian3_7();
+..\TASK\task.h(167): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\planC.c: 8 warnings, 0 errors
+compiling mpuiic.c...
+compiling pid.c...
+..\HARDWARE\SENSOR\sensor.h(38): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\LED\led.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\TIM\tim.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\USART3\usart3.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\TASK\task.h(162): warning:  #1295-D: Deprecated declaration jingdian4_3 - give arg types
+  void jingdian4_3();
+..\TASK\task.h(163): warning:  #1295-D: Deprecated declaration jingdian3_7 - give arg types
+  void jingdian3_7();
+..\TASK\task.h(167): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\HARDWARE\PID\pid.c(693): warning:  #177-D: variable "roll_ref"  was declared but never referenced
+  	float roll_ref;
+..\HARDWARE\PID\pid.c(1003): warning:  #1-D: last line of file ends without a newline
+  }
+..\HARDWARE\PID\pid.c: 10 warnings, 0 errors
+compiling inv_mpu_dmp_motion_driver.c...
+compiling inv_mpu.c...
+linking...
+Program Size: Code=30996 RO-data=3804 RW-data=208 ZI-data=1328  
+FromELF: creating hex file...
+"..\OBJ\Template.axf" - 0 Error(s), 69 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.1.0.5.pack
+                Keil.STM32F1xx_DFP.1.0.5
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Template
+  E:\Keil5\Pack\Keil\STM32F1xx_DFP\1.0.5\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
