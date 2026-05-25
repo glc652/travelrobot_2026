@@ -1,0 +1,175 @@
+/**
+  ******************************************************************************
+  * @file    Sensor.c
+  * @brief   传感器
+  * @date    12/08
+    @verbatim
+
+    光电传感器、色标传感器
+    光电：
+        用于识别挡板：没挡住灯亮，返回1；挡住灯灭，返回0；传递数字信号给；14.5cm
+    色标：
+        平台上的定位：识别到黄色出1，黑色为0；调到5-8cm
+**/
+//===================================================Include===================================================
+#include "zf_common_headfile.h"
+#include "Sensor.h"
+//===================================================定义===================================================
+//灰度传感器
+#define Grey_Sensor_UART (UART_4)
+#define Grey_Sensor_TX (UART4_TX_C16)
+#define Grey_Sensor_RX (UART4_RX_C17)
+#define Grey_Sensor_UART_PRIORITY (LPUART4_IRQn)
+
+uint8 Grey_Analog_Data[64]  = {0};   //存储灰度的数组
+static uint8_t GraySensor_FifteenAnalogValue[2] = {0x00, 0xD9}; //指令
+uint8 Grey_Digital_Data[64] = {0}; //1表示检测到白线
+bool Receive_Flag = false;  //接受完成标志
+
+//车身红外传感器
+#define IR_Sensor             (B10)   
+// #define IR_Sensor_MR             (B9)   //右
+//色标传感器
+#define SB_Sensor_FL             (D12)  //前左
+#define SB_Sensor_FR             (D14)  //前右
+#define SB_Sensor_BL             (D13)  //后左
+#define SB_Sensor_BR             (D15)  //后右
+
+//前后左右
+#define Left        (0)
+#define Right       (1)
+#define Front_L     (10)
+#define Front_R     (11)
+#define Behind_L    (20)
+#define Behind_R    (21)
+
+//===================================================变量===================================================
+//===================================================内部调用===================================================
+/**@brief     车身红外初始化
+-- @param     无
+**/
+void IR_Sensor_Init(void){
+    gpio_init(IR_Sensor, GPI, GPIO_HIGH, GPI_PULL_UP);  // 初始化 GD_Sensor_L 输入 默认高电平 上拉输入
+}
+
+/**@brief     色标传感器初始化
+-- @param     无
+**/
+void SB_Sensor_Init(void){
+    gpio_init(SB_Sensor_FL, GPI, GPIO_HIGH, GPI_PULL_UP);  // 初始化 SB_Sensor_FL 输入 默认高电平 上拉输入
+    gpio_init(SB_Sensor_BL, GPI, GPIO_HIGH, GPI_PULL_UP);  // 初始化 SB_Sensor_BL 输入 默认高电平 上拉输入
+    gpio_init(SB_Sensor_FR, GPI, GPIO_HIGH, GPI_PULL_UP);  // 初始化 SB_Sensor_FR 输入 默认高电平 上拉输入
+    gpio_init(SB_Sensor_BR, GPI, GPIO_HIGH, GPI_PULL_UP);  // 初始化 SB_Sensor_BR 输入 默认高电平 上拉输入
+
+}
+
+/**@brief   手动设置灰度传感器亮度
+-- @param   uint8 light 亮度，范围0~100，建议不要超过75
+**/
+static void GraySensor_ConfigLight(uint8 light)
+{
+	uint8 GraySensorLightConfiguration[3] = {0x00, 0xc6, light};
+    uart_write_buffer(Grey_Sensor_UART,GraySensorLightConfiguration,3);
+}
+
+/**@brief   灰度传感器初始化
+-- @param   无
+**/  
+void GreySensor_Init(void)
+{
+    uart_init(Grey_Sensor_UART, 9600, Grey_Sensor_TX, Grey_Sensor_RX);
+    // GraySensor_ConfigLight(20);//只调用一次
+    uart_rx_interrupt(Grey_Sensor_UART, 1);
+    interrupt_set_priority(Grey_Sensor_UART_PRIORITY, 0);
+}
+
+//===================================================外部调用===================================================
+/**@brief     色标、光电、红外、灰度传感器初始化
+-- @param     无
+**/
+void Sensor_Init(void){
+   IR_Sensor_Init();
+//    SB_Sensor_Init();
+    GreySensor_Init();
+}
+
+/**@brief     获取红外传感器数值
+-- @param     uint8 num：0：左边； 1：右边
+-- @return    uint8 status返回状态：0：识别到白线； 1：没识别到(默认值)
+**/
+uint8 Get_IR_Level(uint8 num){
+    uint8 status = 1;
+    if (num == Left){
+        status = gpio_get_level(IR_Sensor);
+    }else if (num == Right){
+        status = gpio_get_level(IR_Sensor);
+    }
+    return status;
+
+}
+
+/**@brief     获取色标传感器数值
+-- @param     uint8 num：10：车头左边；11：车头右边；20：车身左边；21：车身右边
+-- @return    uint8 status返回状态：0：默认； 1：检测到黄色
+**/
+uint8 Get_SB_Level(uint8 num){
+    uint8 status = 0;
+    uint8 temp = 0; //提高运行速度
+    
+    if (num == Front_L) temp = gpio_get_level(SB_Sensor_FL);
+    else if (num == Front_R) temp = gpio_get_level(SB_Sensor_FR);
+    else if (num == Behind_L) temp = gpio_get_level(SB_Sensor_BL);
+    else if (num == Behind_R) temp = gpio_get_level(SB_Sensor_BR);
+    
+    if (temp == 1) status = 1;
+    
+    return status;
+
+}
+
+//====灰度
+/**@brief   发送获取十五路灰度值命令
+-- @param   无
+**/
+void GreySensor_AnalogValue_Transmit(void)
+{
+    uart_write_buffer(Grey_Sensor_UART,GraySensor_FifteenAnalogValue,2);
+}
+
+uint16 critical_value = 210; //根据环境设置该临界值
+/**@brief   获取十五路灰度值命令
+-- @param   无
+-- @paragraph 小于等于临界值 说明扫到白线，DIgital_Data[i] = 1；
+**/
+void GreySensor_AnalogValue_Receive(void)
+{
+    static uint8 GreySensor_Data_Count = 0;
+    static uint8 GreySensor_Value = 0;
+    if (uart_query_byte(Grey_Sensor_UART,&GreySensor_Value)){
+        Grey_Analog_Data[GreySensor_Data_Count++] = GreySensor_Value;
+    }
+    if(GreySensor_Data_Count >= 18)
+    {
+        GreySensor_Data_Count = 0;
+        Receive_Flag = true;
+    }
+    // else{
+    //     Receive_Flag = false;
+    // }
+
+}
+
+/**@brief   十五路灰度值调试
+-- @param   无
+-- @paragraph 数组第3位为实际第一个传感器的值
+**/
+void GreySensor_Debug(void)
+{
+    if(Receive_Flag)
+    {
+        for(uint8 i = 3;i<=17;i++)
+        {
+            printf("Grey_Analog_Data[%d] = %d\r\n",i,Grey_Analog_Data[i]);
+        }
+    }
+}
