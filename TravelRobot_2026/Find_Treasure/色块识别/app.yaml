@@ -1,0 +1,10 @@
+id: look_1
+name: Look_1
+version: 4.12.5
+author: Converter
+icon: app.png
+desc: '666'
+files:
+  - app.png
+  - app.yaml
+  - main.py
